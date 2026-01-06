@@ -5,12 +5,16 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.npc, function (sprite, otherSpri
     mySprite2.sayText("click B to talk", 500, false)
     if (controller.B.isPressed()) {
         game.showLongText("hi boots！I'm strong monkey，here is the forest", DialogLayout.Bottom)
-        game.showLongText("I can let you go but be careful", DialogLayout.Bottom)
+        game.showLongText("I can let you go but I need to teach you somethings", DialogLayout.Bottom)
+        game.showLongText("press A to shoot", DialogLayout.Bottom)
         tiles.placeOnTile(mySprite2, tiles.getTileLocation(10, 11))
         tiles.setWallAt(tiles.getTileLocation(9, 12), false)
+        tiles.setWallAt(tiles.getTileLocation(9, 12), false)
     }
-    tiles.setWallAt(tiles.getTileLocation(9, 12), false)
     effects.clearParticles(mySprite2)
+})
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+	
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile18`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`级别2`)
@@ -40,6 +44,25 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile20`, function (sprite, 
     tiles.placeOnTile(mySprite, tiles.getTileLocation(6, 1))
     mySprite.sayText("looks like this is the forest", 2000, false)
     tiles.setCurrentTilemap(tilemap`级别3`)
+    mySprite3 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . 7 7 7 7 7 7 7 7 . . . . . 
+        . . 7 f 7 7 7 7 7 7 f 7 7 . . . 
+        . 7 7 f f 7 7 7 7 f f 7 7 7 . . 
+        7 7 7 7 f f 7 7 f f 7 7 7 7 . . 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        7 7 7 7 f 7 7 7 7 f 7 7 7 7 7 . 
+        7 7 7 7 f 7 7 7 7 f 7 7 7 7 7 . 
+        7 7 7 7 f 7 7 7 7 f 7 7 7 7 7 . 
+        7 7 7 7 f 7 7 7 7 f 7 7 7 7 7 . 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        . 7 7 7 7 7 7 7 7 7 7 7 7 7 . . 
+        . 7 7 7 7 7 7 7 7 7 7 7 7 7 . . 
+        . . 7 7 7 7 7 7 7 7 7 7 7 . . . 
+        `, SpriteKind.Enemy)
+    mySprite3.follow(mySprite, 30)
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.castle.tileGrass2, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`级别0`)
@@ -63,7 +86,13 @@ scene.onOverlapTile(SpriteKind.Player, sprites.castle.tileGrass2, function (spri
         . f e e f e e f . . f f f f . . 
         `, SpriteKind.npc)
     tiles.placeOnTile(mySprite2, tiles.getTileLocation(10, 11))
+    sprites.destroy(mySprite3)
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    info.changeLifeBy(-1)
+    pause(2000)
+})
+let mySprite3: Sprite = null
 let mySprite2: Sprite = null
 let mySprite: Sprite = null
 tiles.setCurrentTilemap(tilemap`级别1`)
@@ -87,6 +116,7 @@ mySprite = sprites.create(img`
     `, SpriteKind.Player)
 controller.moveSprite(mySprite)
 scene.cameraFollowSprite(mySprite)
+info.setLife(10)
 forever(function () {
     if (mySprite.vx > 0) {
         mySprite.setImage(img`
