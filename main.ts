@@ -13,8 +13,89 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.npc, function (sprite, otherSpri
     }
     effects.clearParticles(mySprite2)
 })
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLightMoss, function (sprite, location) {
+    tiles.setCurrentTilemap(tilemap`级别2`)
+    mySprite2 = sprites.create(img`
+        . . . . f f f f f . . . . . . . 
+        . . . f e e e e e f . . . . . . 
+        . . f d d d d e e e f . . . . . 
+        . f d f d d f d e e f . . . . . 
+        . f d f d d f d e e f f . . . . 
+        f d e e d d d d e e d d f . . . 
+        f d d d d d d d e e b d c . . . 
+        f c c c c c d e e e b d c . f f 
+        . f d d d d e e e f f c . f e f 
+        . f f f f f f e e e e f . f e f 
+        . f f f f e e e e e e e f f e f 
+        f d d f d d f e f e e e e f f . 
+        f d b f d b f e f e e e e f . . 
+        f f f f f f f f f f f f e f . . 
+        . f e e f e e f . f e e e f . . 
+        . f e e f e e f . . f f f f . . 
+        `, SpriteKind.npc)
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(4, 4))
+    tiles.placeOnTile(mySprite2, tiles.getTileLocation(9, 11))
+    sprites.destroy(mySprite5)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile22`, function (sprite, location) {
+    tiles.setCurrentTilemap(tilemap`级别5`)
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(7, 14))
+    sprites.destroy(mySprite2)
+    mySprite5 = sprites.create(img`
+        ................
+        ................
+        ................
+        ................
+        ................
+        ................
+        ................
+        .......ee.......
+        ......eeee......
+        ......dfee......
+        e.....ddee......
+        e..eeeeeeee.....
+        ee.eeeeeeeee....
+        .ee...eeee.e....
+        .d55.eeeee.e....
+        .555522.ee....ee
+        .555222.ee...55e
+        .55d555552.555d5
+        ..5555d55555d555
+        ...55555d5d5555.
+        ....55555555555.
+        ......e555e55...
+        ......e...e.....
+        ......eeeeee....
+        .....eeedddde...
+        .....eeed7dee...
+        .....eeddeeee...
+        ....eee7eeeeee..
+        ....e7eeeeeeee..
+        ................
+        ................
+        ................
+        `, SpriteKind.Food)
+    tiles.placeOnTile(mySprite5, tiles.getTileLocation(7, 7))
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-	
+    mySprite4 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Player)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile18`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`级别2`)
@@ -93,6 +174,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     pause(2000)
 })
 let mySprite3: Sprite = null
+let mySprite4: Sprite = null
+let mySprite5: Sprite = null
 let mySprite2: Sprite = null
 let mySprite: Sprite = null
 tiles.setCurrentTilemap(tilemap`级别1`)
@@ -115,6 +198,7 @@ mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
 controller.moveSprite(mySprite)
+music.play(music.createSong(assets.song`music001`), music.PlaybackMode.LoopingInBackground)
 scene.cameraFollowSprite(mySprite)
 info.setLife(10)
 forever(function () {

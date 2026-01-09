@@ -1,5 +1,5 @@
 {
-    "name": "The adventure of boots",
+    "name": "The adventure of boots - latest",
     "description": "",
     "dependencies": {
         "device": "*"
@@ -10,7 +10,10 @@
         "README.md",
         "assets.json",
         "tilemap.g.jres",
-        "tilemap.g.ts"
+        "tilemap.g.ts",
+        "main.py",
+        "images.g.jres",
+        "images.g.ts"
     ],
     "testFiles": [
         "test.ts"
